@@ -2,7 +2,9 @@
   "domain": "hello_world",
   "name": "Hello World Agent",
   "documentation": "http://example.com",
+  "integration_type": "service",
   "dependencies": ["conversation"],
+
   "codeowners": [],
   "requirements": [],
   "version": "1.0"
