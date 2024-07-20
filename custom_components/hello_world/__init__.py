@@ -1,8 +1,8 @@
 import logging
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import ConfigType
-import voluptuous as vol
 from homeassistant.helpers import config_validation as cv
+import voluptuous as vol
 
 _LOGGER = logging.getLogger(__name__)
 DOMAIN = "hello_world"
@@ -18,10 +18,11 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     response_text = config[DOMAIN]['response']
 
     async def handle_say_hello(call):
-        """Handle say hello service calls."""
-        _LOGGER.info(f"Responding with: {response_text}")
+        """Service to log a response and show it as a notification."""
+        _LOGGER.info(f"Hello World Response: {response_text}")
         hass.components.persistent_notification.create(response_text, title="Hello World")
 
+    # Register service within Home Assistant.
     hass.services.async_register(DOMAIN, "say_hello", handle_say_hello)
 
     return True
