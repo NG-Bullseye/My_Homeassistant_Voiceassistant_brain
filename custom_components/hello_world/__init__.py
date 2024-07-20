@@ -1,17 +1,16 @@
-from homeassistant.core import HomeAssistant, ServiceCall
-from homeassistant.helpers.typing import ConfigType
+import logging
+from homeassistant.helpers import intent
 
-async def async_setup(hass: HomeAssistant, config: ConfigType):
-    # Funktion, die auf Sprachbefehle antwortet
-    async def handle_conversation(voice_command: str) -> str:
-        # Hier könntest du eine Logik einbauen, um auf verschiedene Befehle zu reagieren
-        if "wie spät ist es" in voice_command:
-            return "Es ist jetzt " + datetime.now().strftime("%H:%M")
-        elif "wie ist das wetter" in voice_command:
-            return "Es ist momentan sonnig"
-        else:
-            return "Hello World"
+_LOGGER = logging.getLogger(__name__)
 
-    # Registriere die 'brain'-Funktion im Voice Pipeline System
-    hass.data["voice_pipeline"].register_brain("my_conversation_brain", handle_conversation)
+async def async_setup(hass, config):
+    intent.async_register(hass, HelloWorldIntentHandler())
     return True
+
+class HelloWorldIntentHandler(intent.IntentHandler):
+    intent_type = 'HelloWorld'
+
+    async def async_handle(self, intent_obj):
+        response = intent_obj.create_response()
+        response.async_set_speech("Hello World from your conversation agent.")
+        return response
