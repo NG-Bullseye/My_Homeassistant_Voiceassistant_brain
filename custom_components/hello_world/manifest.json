@@ -1,10 +1,8 @@
 {
   "domain": "hello_world",
   "name": "Hello World Agent",
-  "documentation": "http://example.com",
-  "integration_type": "service",
+  "documentation": "https://example.com",
   "dependencies": ["conversation"],
-
   "codeowners": [],
   "requirements": [],
   "version": "1.0"
