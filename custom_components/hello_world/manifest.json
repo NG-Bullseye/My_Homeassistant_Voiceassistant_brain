@@ -1,8 +1,8 @@
 {
   "domain": "hello_world",
-  "name": "Hello World",
-  "documentation": "",
-  "dependencies": [],
+  "name": "Hello World Agent",
+  "documentation": "http://example.com",
+  "dependencies": ["conversation"],
   "codeowners": [],
   "requirements": [],
   "version": "1.0"

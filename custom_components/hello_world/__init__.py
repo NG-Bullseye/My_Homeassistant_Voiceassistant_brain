@@ -1,11 +1,18 @@
-from homeassistant.helpers import intent
+import logging
+from homeassistant.components.conversation import AbstractConversationAgent
+from homeassistant.helpers.typing import HomeAssistantType
 
-async def async_setup(hass, config):
-    hass.helpers.intent.async_register(MyIntentHandler())
+_LOGGER = logging.getLogger(__name__)
+
+async def async_setup(hass: HomeAssistantType, config: dict) -> bool:
+    """Set up the Hello World conversation agent."""
+    _LOGGER.info("Setting up Hello World agent")
+    hass.data["conversation_agent"] = HelloWorldAgent()
     return True
 
-class MyIntentHandler(intent.IntentHandler):
-    intent_type = 'HelloWorldIntent'
+class HelloWorldAgent(AbstractConversationAgent):
+    """A simple Hello World conversation agent."""
 
-    async def handle(self, intent_obj):
-        # Your intent handling logic here
+    async def async_process(self, text: str, conversation_id: str):
+        """Process a line of text."""
+        return "Hello World"
