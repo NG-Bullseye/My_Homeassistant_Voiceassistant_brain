@@ -1,0 +1,9 @@
+{
+  "domain": "hello_world",
+  "name": "Hello World",
+  "documentation": "",
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": [],
+  "version": "1.0"
+}
