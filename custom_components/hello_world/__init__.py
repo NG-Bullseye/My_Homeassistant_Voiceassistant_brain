@@ -1,20 +1,21 @@
 import logging
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.typing import ConfigType
 from homeassistant.components.conversation import AbstractConversationAgent
-from homeassistant.helpers.typing import HomeAssistantType
 
 _LOGGER = logging.getLogger(__name__)
+DOMAIN = "hello_world"
 
-async def async_setup(hass: HomeAssistantType, config: dict) -> bool:
+async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the Hello World conversation agent."""
-    _LOGGER.info("Setting up Hello World agent")
-    agent = HelloWorldAgent()
-    hass.data["conversation_agent"] = agent  # Optional: store agent in hass data
-    hass.components.conversation.async_register(agent)
+    hass.data[DOMAIN] = HelloWorldAgent()
+    hass.components.conversation.async_register(hass.data[DOMAIN])
     return True
 
 class HelloWorldAgent(AbstractConversationAgent):
     """A simple Hello World conversation agent."""
 
     async def async_process(self, text: str, conversation_id: str) -> str:
-        """Process a line of text and return a response."""
+        """Process a line of text and return 'Hello World'."""
+        _LOGGER.info("Received text for processing: %s", text)
         return "Hello World"
